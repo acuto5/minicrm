@@ -19,4 +19,8 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/company', 'CompanyController')->except(['show']);
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('/company', 'CompanyController')->except(['show']);
+
+    Route::resource('/employee', 'EmployeeController')->except(['show']);
+});
